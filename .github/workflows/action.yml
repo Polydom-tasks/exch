@@ -7,11 +7,12 @@ on:
     branches: [ "main" ]
 
 jobs:
-  ruff:
+  lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: chartboost/ruff-action@v1
-        with:
-          src: "./src"
-          version: 0.2.2
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v2
+    - uses: chartboost/ruff-action@v1
+      with:
+        args: --check .
+        fix_args: --fix .

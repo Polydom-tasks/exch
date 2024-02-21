@@ -64,7 +64,7 @@ class SetRatesUsecase:
         await self.store_rates(response.rates)
         return CommonResponse(success=True, code=None, message="Successfully updated rates")
 
-    async def store_rates(self, rates: dict[str, float]) -> None:
+    async def store_rates(self, rates: dict[str, float]):
         """Store rates in database."""
         values = [{"name": "EUR", "code": code, "rate": rate} for code, rate in rates.items()]
         await self.repository.bulk_create_or_update(values)
