@@ -1,0 +1,15 @@
+
+The project should be launched with one command after cloning the repository, preferably via "docker-compose -f docker-compose.yml up --build -d".
+PostgreSQL must also run in a container.
+
+4. Applying Migrations with Predefined Data:
+Include a migration script that initializes the database with predefined currency data, including names, codes, and initial exchange rates.
+Ensure that these migrations are automatically applied when setting up the project, either during the initial setup or during container initialization.
+Document the migration process and provide instructions for running migrations when setting up the project.
+
+Notes:
+Once development is complete, provide instructions for installing and running the project, as well as examples of using the API.
+Set up a CI script that will do the following:
+Check the syntax of your code for errors (for example, using pylint or flake8 for Python).
+Run automated tests for your application (if any).
+Generate a report on code coverage by tests (if possible).

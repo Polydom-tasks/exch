@@ -1,0 +1,33 @@
+version: '3.5'
+services:
+  exch-db:
+    image: postgres:16.0-alpine
+    container_name: exch-db
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: postgres
+
+  exch:
+    build: .
+    container_name: exch
+    restart: unless-stopped
+    environment:
+      - EXCH_ACCESS_KEY=f3a25ca45296a4be72eb1420a7041f70
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=exch-db
+      - POSTGRES_DB=postgres
+    depends_on:
+      - exch-db
+    ports:
+      - "8888:8888"
+    command: ["/app/setup.py"]
+
+volumes:
+  pgdata:

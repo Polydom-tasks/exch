@@ -1,0 +1,17 @@
+__pycache__
+.pytest_cache/
+app.egg-info
+.idea/*
+!/.idea/runConfigurations/
+.venv/
+venv/
+db.sqlite3
+*.pyc
+static/*
+
+.env
+.DS_Store
+.vscode
+media/
+.rabbitmq-env
+
