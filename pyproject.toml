@@ -69,6 +69,7 @@ omit = [
     "*main*",
     "*setup*",
     "*__init__*",
+    "*db_session*",
 ]
 
 [tool.coverage.report]

@@ -3,7 +3,7 @@
 import pytest
 
 from src.database import Base
-from .fixtures import db_session, db_sqlite_session
+from .fixtures import db_session, db_sqlite_session, rates
 
 __all__ = [
     "db_session",
