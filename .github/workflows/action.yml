@@ -32,7 +32,7 @@ jobs:
           python -m pip install --upgrade pip  
           pip install poetry
           poetry config virtualenvs.create false
-	      poetry install --only main --no-root --no-cache
+          poetry install --only main --no-root --no-cache
       - name: Test with pytest
         run: |
           pytest tests --slow -vv --cov=.
