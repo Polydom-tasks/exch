@@ -1,3 +1,0 @@
-
-Run automated tests for your application (if any).
-Generate a report on code coverage by tests (if possible).
