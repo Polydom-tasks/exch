@@ -7,7 +7,7 @@ install:
 
 install-deploy:
 	poetry config virtualenvs.create false
-	poetry install --only main --no-root --no-cache
+	poetry install --no-root --no-cache
 
 lint:
 	mypy .

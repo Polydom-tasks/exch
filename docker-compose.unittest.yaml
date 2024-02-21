@@ -1,0 +1,24 @@
+version: '3.5'
+services:
+  unittest-db:
+    image: postgres:latest
+    container_name: unittest-db
+    ports:
+      - "5434:5432"
+    environment:
+      - POSTGRES_USER=exch-test
+      - POSTGRES_PASSWORD=exch-test
+      - POSTGRES_DB=exch-test
+
+  unittest-backend:
+    build: .
+    container_name: unittest-backend
+    command: unittest
+    depends_on:
+      - unittest-db
+    environment:
+      - EXCH_ACCESS_KEY=f3a25ca45296a4be72eb1420a7041f70
+      - POSTGRES_USER=exch-test
+      - POSTGRES_PASSWORD=exch-test
+      - POSTGRES_HOST=unittest-db
+      - POSTGRES_DB=exch-test

@@ -1,20 +1,32 @@
 #!/bin/bash
+if [ "$1" = 'unittest' ]; then
+    echo "Waiting for postgres..."
 
-check_db() {
-    until pg_isready -h exch-db -p 5432; do
-        echo "Waiting for database to become available..."
-        sleep 1
+    while ! nc -z "unittest-db" "5432"; do
+      sleep 0.1
     done
-    echo "Database is available"
-}
+    echo "PostgreSQL started"
 
-check_db
+    alembic upgrade head
+    make test
+    exit $?
+else
+  check_db() {
+      until pg_isready -h exch-db -p 5432; do
+          echo "Waiting for database to become available..."
+          sleep 1
+      done
+      echo "Database is available"
+  }
 
-echo "Performing migrations"
-alembic upgrade head
+  check_db
 
-echo "Initializing data"
-python setup.py
+  echo "Performing migrations"
+  alembic upgrade head
 
-echo "Running uvicorn"
-make start
+  echo "Initializing data"
+  python setup.py
+
+  echo "Running uvicorn"
+  make start
+fi
