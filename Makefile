@@ -19,7 +19,7 @@ format:
 	black .
 
 test:
-	pytest tests -vv --cov=. --cov-report html
+	pytest tests --slow -vv --cov=.
 
 start:
 	uvicorn main:app --host 0.0.0.0 --port 8888 --reload

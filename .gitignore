@@ -8,10 +8,11 @@ venv/
 db.sqlite3
 *.pyc
 static/*
-
+.coverage
 .env
 .DS_Store
 .vscode
 media/
 .rabbitmq-env
+database.db
 

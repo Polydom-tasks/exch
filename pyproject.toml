@@ -20,8 +20,11 @@ httpx = "*"
 [tool.poetry.group.qa.dependencies]
 ruff = "*"
 pytest = "*"
+pytest-asyncio = "*"
+aiosqlite = "*"
 mypy = "*"
 black = "*"
+pytest-cov = "*"
 
 [tool.poetry.group.local.dependencies]
 ipdb = "*"
@@ -45,7 +48,7 @@ disallow_untyped_decorators = false
 [tool.ruff]
 lint.select = ["ALL"]
 line-length = 120
-exclude = ["*alembic*", "*.venv*", "*main*"]
+exclude = ["*alembic*", "*.venv*", "*main*", "*tests*"]
 lint.ignore = [
     "D203",  # conflicth with D211
     "D212",  # conflicth with D213
@@ -56,10 +59,16 @@ lint.ignore = [
     "TCH003",  # Move standard library import `` into a type-checking block
 ]
 
+[tool.pytest.ini_options]
+addopts = "--cov-fail-under=70"
+
 [tool.coverage.run]
 branch = true
 omit = [
     "*/alembic/*",
+    "*main*",
+    "*setup*",
+    "*__init__*",
 ]
 
 [tool.coverage.report]
