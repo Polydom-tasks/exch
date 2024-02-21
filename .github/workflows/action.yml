@@ -17,10 +17,9 @@ jobs:
         fix_args: --fix .
 
   test:
-    unittests:
-      runs-on: ubuntu-latest
-      timeout-minutes: 10
-      steps:
-        - uses: actions/checkout@v2
-        - name: Run unit tests
-          run: docker-compose -f docker-compose.unittest.yaml up --build --abort-on-container-exit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run unit tests
+        run: docker-compose -f docker-compose.unittest.yaml up --build --abort-on-container-exit
