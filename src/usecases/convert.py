@@ -20,6 +20,7 @@ class RatesRepositoryInterface(Protocol):
 
 
 SOURCE_TARGET_LEN = 2
+EUR_BASE_LEN = 1
 
 
 @dataclass
@@ -32,6 +33,14 @@ class ConvertUsecase:
         """Handle convert request."""
         rates = await self.repository.get()
         source_target_rates = [rate for rate in rates if rate.code.lower() in (source.lower(), target.lower())]
+
+        if "eur" in [source.lower(), target.lower()]:
+            if len(source_target_rates) != EUR_BASE_LEN:
+                msg = "Symbols not valid. Enter values according to docs."
+                raise ValueError(msg)
+
+            return await self.handle_base_currency(source, source_target_rates[0], amount)
+
         if len(source_target_rates) != SOURCE_TARGET_LEN:
             msg = "Symbols not valid. Enter values according to docs."
             raise ValueError(msg)
@@ -51,3 +60,17 @@ class ConvertUsecase:
     async def convert_amount(self, source: RateModel, target: RateModel, amount: float) -> float:
         """Convert amount."""
         return amount / source.rate * target.rate
+
+    async def handle_base_currency(
+        self,
+        source: str,
+        source_target_rates: RateModel,
+        amount: float,
+    ) -> float:
+        """Convert amount where "EUR" is either source or target."""
+        if source.lower() == "eur":
+            target = source_target_rates[0]
+            return amount * target.rate
+
+        source = source_target_rates[0]
+        return amount / source.rate
