@@ -2,6 +2,8 @@ from logging.config import dictConfig
 
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
+from httpx import Request
+from starlette.responses import JSONResponse
 
 from core.config import logging_conf, settings
 from src.api import api_router
@@ -29,6 +31,14 @@ def custom_openapi():
     )
     app.openapi_schema = openapi_schema
     return app.openapi_schema
+
+
+@app.exception_handler(ValueError)
+async def value_error_exception_handler(request: Request, exc: ValueError):
+    return JSONResponse(
+        status_code=400,
+        content={"message": str(exc)},
+    )
 
 
 app.openapi = custom_openapi
