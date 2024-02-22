@@ -69,8 +69,8 @@ class ConvertUsecase:
     ) -> float:
         """Convert amount where "EUR" is either source or target."""
         if source.lower() == "eur":
-            target = source_target_rates[0]
+            target = source_target_rates
             return amount * target.rate
 
-        source = source_target_rates[0]
+        source = source_target_rates
         return amount / source.rate
