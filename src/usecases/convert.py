@@ -39,7 +39,13 @@ class ConvertUsecase:
                 msg = "Symbols not valid. Enter values according to docs."
                 raise ValueError(msg)
 
-            return await self.handle_base_currency(source, source_target_rates[0], amount)
+            result = await self.handle_base_currency(source, source_target_rates[0], amount)
+            return ConvertResponse(
+                source=source,
+                target=target,
+                amount=amount,
+                result=result,
+            )
 
         if len(source_target_rates) != SOURCE_TARGET_LEN:
             msg = "Symbols not valid. Enter values according to docs."
